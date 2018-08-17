@@ -1,11 +1,11 @@
 /* External dependencies */
 const Firestore = require('@google-cloud/firestore');
 
-
 /* Configuration */
+const Config = require('../config');
 const firestore = new Firestore({
-	projectId: 'campus-directory-beta',
-	keyFilename: './serviceAccount.json',
+	projectId: Config.firebase.projectId,
+	keyFilename: Config.firebase.keyFilename,
 });
 
 
@@ -34,7 +34,7 @@ function upsert(collection, data) {
 		return Promise.reject(err);
 	}
 
-	const id = data._id || generate(alphabet, 20); // => "BCiWBgfaeCf0j7griRp0"
+	const id = data._id || generate(Config.alphabet, 20); // => "BCiWBgfaeCf0j7griRp0"
 
 	document = firestore.doc(collection + '/' + id);
 	return document.set(data);
