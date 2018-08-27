@@ -65,6 +65,10 @@ function getByRef(ref) {
 		.then(d => { 
 			return d.data();
 		})
+		.then(data => {
+			data._id = ref.id; 
+			return data;
+		})
 		.then((data) => {
 			return cleanData(data);
 		})
