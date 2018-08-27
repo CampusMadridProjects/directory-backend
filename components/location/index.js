@@ -1,7 +1,12 @@
-const geolib = require('geolib');
-const Config = require('../config');
+/* Configs */
+const Config = require('../../config');
 
+/* Modules */
+const geolib = require('geolib');
+
+/* Constants */
 const maxDistance = Config.location.maxDistance
+
 
 /** allow
  *	Given a geopoint, decide if can or not access to the application
@@ -19,7 +24,7 @@ function allow(lat, long) {
 		const result = {
 			allow: false,
 			distance: dist
-		}
+		};
 
 		if (maxDistance === 0 || distance <= maxDistance) {
 			result.allow = true;
