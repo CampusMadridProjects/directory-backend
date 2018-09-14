@@ -9,5 +9,8 @@ module.exports = {
 		userDbFile: 'user-db.json',
 		startupDbFile: 'company-db.json',
 		orgDbFile: 'org-db.json'
+	},
+	location: {
+		maxDistance: 0,
 	}
 }

@@ -16,6 +16,7 @@
     "fast-crc32c": "^1.0.4",
     "firebase-admin": "^6.0.0",
     "firebase-functions": "^2.0.4",
+    "geolib": "^2.0.24",
     "nanoid": "^1.0.7"
   },
   "devDependencies": {
