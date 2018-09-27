@@ -108,7 +108,12 @@ function getEmployees(startup) {
 
 	if (startup.employees && Array.isArray(startup.employees)) {
 		for (var i = 0; i < startup.employees.length; i++) {
-			employeeList.push( People.get(startup.employees[i].split('/')[1]) )
+			try {
+				employeeList.push( People.get(startup.employees[i].split('/')[1]) )
+			} catch (e) {
+				console.error('Error getting person data:');
+				console.error(e);
+			}
 		}
 	} 
 

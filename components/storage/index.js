@@ -1,13 +1,16 @@
+/* Configs */
+const Config = require('../../config');
+
 /* Components */
 const People = require('../people');
 const Startup = require('../startup');
 const Org = require('../organization');
 
 /* Constants */
-const WRITER_NAME = 'backend';
-const USER_DB_FILE = 'user-db.json';
-const STARTUP_DB_FILE = 'company-db.json';
-const ORG_DB_FILE = 'org-db.json';
+const WRITER_NAME = Config.storage.writerName;
+const USER_DB_FILE = Config.storage.userDbFile || 'user-db.json';
+const STARTUP_DB_FILE = Config.storage.startupDbFile || 'company-db.json';
+const ORG_DB_FILE = Config.storage.orgDbFile || 'org-db.json';
 
 
 /* Internal functions */
