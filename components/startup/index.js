@@ -13,7 +13,9 @@ function getStartups() {
 			const startupList = [];
 
 			for (var i = 0; i < data.length; i++) {
-				startupList.push(getEmployees(data[i]))
+				if(data[i].name) {
+					startupList.push(getEmployees(data[i]))
+				}
 			}
 
 			return Promise.all(startupList);

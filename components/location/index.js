@@ -1,11 +1,13 @@
+/* Modules */
+const geolib = require('geolib');
+var jwt = require('jsonwebtoken');
+
 /* Configs */
 const Config = require('../../config');
 
-/* Modules */
-const geolib = require('geolib');
-
 /* Constants */
-const maxDistance = Config.location.maxDistance
+const maxDistance = Config.location.maxDistance;
+const secret = Config.jwt.secret || 'secret';
 
 
 /** allow
@@ -23,7 +25,8 @@ function allow(lat, long) {
 
 		const result = {
 			allow: false,
-			distance: distance
+			distance: distance,
+			token: null,
 		};
 
 		// console.log('Detected distance: ' + distance)
@@ -35,8 +38,19 @@ function allow(lat, long) {
 			console.warn('Trying to access ' + distance + ' meters away from Campus.');
 		}
 
+		result.token = generateJWT(distance);
+
 		resolve(result);
 	});
+}
+
+function generateJWT(distance) {
+	var data = {
+		distance: distance,
+		date: new Date(),
+	}
+
+	return jwt.sign(data, secret)
 }
 
 
