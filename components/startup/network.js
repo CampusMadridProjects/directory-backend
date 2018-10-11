@@ -26,6 +26,8 @@ const secret = Config.jwt.secret || 'secret';
  */
 function getStartups(request, response, next) { 
 	cors(request, response, () => {
+		const token = request.headers.authorization.replace('Bearer ', '');
+
 		try {
 			var decoded = jwt.verify(token, secret);
 			
