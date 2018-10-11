@@ -1,6 +1,7 @@
 /* External dependencies */
 // const router = require('express').Router();
 const cors = require('cors')({ origin: true });
+var jwt = require('jsonwebtoken');
 
 /* Component dependencies */
 const People = require('./index');
@@ -27,7 +28,7 @@ const secret = Config.jwt.secret || 'secret';
  */
 function getPeople(request, response, next) { 
 	cors(request, response, () => {
-		const token = request.headers.authorization.replace('Bearer ', '');
+		const token = (request.headers.authorization && request.headers.authorization.replace('Bearer ', '')) || '';
 
 		try {
 			var decoded = jwt.verify(token, secret);

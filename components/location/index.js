@@ -1,5 +1,6 @@
 /* Modules */
 const geolib = require('geolib');
+var jwt = require('jsonwebtoken');
 
 /* Configs */
 const Config = require('../../config');
@@ -43,7 +44,6 @@ function allow(lat, long) {
 	});
 }
 
-
 function generateJWT(distance) {
 	var data = {
 		distance: distance,
@@ -51,6 +51,7 @@ function generateJWT(distance) {
 	}
 
 	return jwt.sign(data, secret)
+}
 
 
 module.exports = {
