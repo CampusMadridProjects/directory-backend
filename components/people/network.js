@@ -5,6 +5,12 @@ const cors = require('cors')({ origin: true });
 /* Component dependencies */
 const People = require('./index');
 
+/* Configs */
+const Config = require('../../config');
+
+/* Constants */
+const secret = Config.jwt.secret || 'secret';
+
 
 /* Routes */
 // router.get('/', getPeople);
@@ -21,16 +27,23 @@ const People = require('./index');
  */
 function getPeople(request, response, next) { 
 	cors(request, response, () => {
-		return People.list()
-			.then( (data) => {
-				return response.send(data);
-			})
-			.catch(e => {
-				console.error('error', e)
-				response.status(500).send([]);
-			});
+		try {
+			var decoded = jwt.verify(token, secret);
+			
+			return People.list()
+				.then( (data) => {
+					return response.send(data);
+				})
+				.catch(e => {
+					console.error('error', e)
+					response.status(500).send([]);
+				});
+		} catch(err) {
+			return response.status(401).send([]);
+		}
 	});
 }
+
 
 
 /* Exposed interface */
