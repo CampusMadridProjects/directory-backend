@@ -7,6 +7,8 @@ const Config = require('../../config');
 
 /* Constants */
 const maxDistance = Config.location.maxDistance;
+const centerLatitude =  Config.location.latitude;
+const centerLongitude =  Config.location.longitude;
 const secret = Config.jwt.secret || 'secret';
 
 

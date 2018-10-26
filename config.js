@@ -11,6 +11,8 @@ module.exports = {
 		orgDbFile: 'org-db.json'
 	},
 	location: {
+		latitude: 40.412406,
+		longitude: -3.718247,
 		maxDistance: 0,
 	}
 }
