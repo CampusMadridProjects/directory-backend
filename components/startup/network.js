@@ -30,7 +30,7 @@ function getStartups(request, response, next) {
 		const token = (request.headers.authorization && request.headers.authorization.replace('Bearer ', '')) || '';
 
 		try {
-			var decoded = jwt.verify(token, secret);
+			var decoded = Config.needAuth.startup && jwt.verify(token, secret);
 			
 			return Startup.list()
 				.then( (data) => {

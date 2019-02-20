@@ -14,5 +14,13 @@ module.exports = {
 		latitude: 40.412406,
 		longitude: -3.718247,
 		maxDistance: 0,
-	}
+	},
+	jwt: {
+		secret: 'secret',
+	},
+	needAuth: {
+		people: false,
+		startup: false,
+		organization: false,
+	},
 }
