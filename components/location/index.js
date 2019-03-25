@@ -1,11 +1,15 @@
+/* Modules */
+const geolib = require('geolib');
+var jwt = require('jsonwebtoken');
+
 /* Configs */
 const Config = require('../../config');
 
-/* Modules */
-const geolib = require('geolib');
-
 /* Constants */
-const maxDistance = Config.location.maxDistance
+const maxDistance = Config.location.maxDistance;
+const centerLatitude =  Config.location.latitude;
+const centerLongitude =  Config.location.longitude;
+const secret = Config.jwt.secret || 'secret';
 
 
 /** allow
@@ -16,22 +20,39 @@ const maxDistance = Config.location.maxDistance
  */
 function allow(lat, long) {
 	return new Promise((resolve, reject) => {
-		var dist = geolib.getDistance(
+		var distance = geolib.getDistance(
 		    {latitude: lat, longitude: long},
 		    {latitude: 40.412406, longitude: -3.718247}
 		);
 
 		const result = {
 			allow: false,
-			distance: dist
+			distance: distance,
+			token: null,
 		};
+
+		// console.log('Detected distance: ' + distance)
+		// console.log('Maximum allowed distance: ' + maxDistance)
 
 		if (maxDistance === 0 || distance <= maxDistance) {
 			result.allow = true;
+		} else {
+			console.warn('Trying to access ' + distance + ' meters away from Campus.');
 		}
+
+		result.token = generateJWT(distance);
 
 		resolve(result);
 	});
+}
+
+function generateJWT(distance) {
+	var data = {
+		distance: distance,
+		date: new Date(),
+	}
+
+	return jwt.sign(data, secret)
 }
 
 

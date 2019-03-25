@@ -10,7 +10,10 @@ const COLLECTION = 'organization';
  *	@return {Promise} A promise with the startup list
  */
 function getStartups() {
-	return persistent.list(COLLECTION);
+	return persistent.list(COLLECTION)
+		.then(data => {
+			return data.filter(item => item.active === true);
+		});
 }
 
 /** getStartup

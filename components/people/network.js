@@ -1,9 +1,16 @@
 /* External dependencies */
 // const router = require('express').Router();
 const cors = require('cors')({ origin: true });
+var jwt = require('jsonwebtoken');
 
 /* Component dependencies */
 const People = require('./index');
+
+/* Configs */
+const Config = require('../../config');
+
+/* Constants */
+const secret = Config.jwt.secret || 'secret';
 
 
 /* Routes */
@@ -21,16 +28,25 @@ const People = require('./index');
  */
 function getPeople(request, response, next) { 
 	cors(request, response, () => {
-		return People.list()
-			.then( (data) => {
-				return response.send(data);
-			})
-			.catch(e => {
-				console.error('error', e)
-				response.status(500).send([]);
-			});
+		const token = (request.headers.authorization && request.headers.authorization.replace('Bearer ', '')) || '';
+
+		try {
+			var decoded = Config.needAuth.people && jwt.verify(token, secret);
+			
+			return People.list()
+				.then( (data) => {
+					return response.send(data);
+				})
+				.catch(e => {
+					console.error('error', e)
+					response.status(500).send([]);
+				});
+		} catch(err) {
+			return response.status(401).send([]);
+		}
 	});
 }
+
 
 
 /* Exposed interface */

@@ -13,7 +13,9 @@ function getStartups() {
 			const startupList = [];
 
 			for (var i = 0; i < data.length; i++) {
-				startupList.push(getEmployees(data[i]))
+				if(data[i].name) {
+					startupList.push(getEmployees(data[i]))
+				}
 			}
 
 			return Promise.all(startupList);
@@ -81,7 +83,7 @@ function modelate(startup) {
 		"_id": startup.company_id || null,
 		"accelerator": startup.accelerator || '',
 		"accelerator_logo": startup.accelerator_logo || '',
-		"active": startup.active || '',
+		"active": (organization.active === true),
 		"description": startup.company_description || '',
 		"employee_count": startup.company_employeesNumber || '',
 		"employees": startup.company_employeesLinks.replace(/\s/g,'').split(',').map( personId => { 

@@ -79,7 +79,7 @@ function updateOrgData(db) {
 function modelate(organization) {
 	var data = {
 		"_id": organization.org_id || null,
-		"active": organization.active || '',
+		"active": (organization.active === true),
 		"description": organization.org_description || '',
 		"employee_count": organization.org_employeesNumber || '',
 		"employees": ( organization.org_employeesLinks && organization.org_employeesLinks.replace(/\s/g,'').split(',').map( personId => { 

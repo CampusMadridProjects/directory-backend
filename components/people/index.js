@@ -65,6 +65,7 @@ function updatePeopleData(db) {
 function modelate(person) {
 	var data = {
 		"_id": person.user_id || null,
+		"active": (organization.active === true),
 		"twitter": person.user_twitterUrl || '',
 		"name": person.user_name || '',
 		"linkedin": person.user_linkedinUrl || '',
