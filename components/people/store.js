@@ -10,7 +10,10 @@ const COLLECTION = 'people';
  *	@return {Promise} A promise with the people list
  */
 function getPeople() {
-	return persistent.list(COLLECTION);
+	return persistent.list(COLLECTION)
+		.then(data => {
+			return data.filter(item => item.active === true);
+		});
 }
 
 /** getPerson
