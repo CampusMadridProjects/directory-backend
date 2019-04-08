@@ -83,7 +83,7 @@ function modelate(startup) {
 		"_id": startup.company_id || null,
 		"accelerator": startup.accelerator || '',
 		"accelerator_logo": startup.accelerator_logo || '',
-		"active": (organization.active === true),
+		"active": (startup.active === true),
 		"description": startup.company_description || '',
 		"employee_count": startup.company_employeesNumber || '',
 		"employees": startup.company_employeesLinks.replace(/\s/g,'').split(',').map( personId => { 
